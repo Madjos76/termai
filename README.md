@@ -106,7 +106,7 @@ rm $PREFIX/bin/ai
 rm -rf ~/.programs/termai
 ```
 
-#3 📄 License
+# 3 📄 License
 This project is licensed under the MIT License.
 You are free to use, modify, and distribute this software. See the LICENSE file for more details.
 <p align="center">
