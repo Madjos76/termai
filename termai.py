@@ -15,6 +15,8 @@ OLD_KEY_FILE = DATA_DIR / "key"
 
 # --- Colors ---
 GREEN = "\033[92m"
+CYAN = "\033[96m"
+YELLOW = "\033[93m"
 RESET = "\033[0m"
 
 # --- Default Settings ---
@@ -91,31 +93,53 @@ def open_editor():
     subprocess.call([editor, str(CONFIG_FILE)])
     sys.exit(0)
 
+def print_help():
+    """Prints the help menu with available commands."""
+    print(f"\n{GREEN}Termai - Termux AI Assistant{RESET}")
+    print(f"A lightweight CLI tool for Gemini AI integration in Termux.\n")
+    
+    print(f"{YELLOW}Usage:{RESET}")
+    print(f"  ai [OPTIONS] \"YOUR QUERY\"")
+    print(f"  cat file.txt | ai [OPTIONS] \"OPTIONAL PROMPT\"")
+    
+    print(f"\n{YELLOW}Options:{RESET}")
+    print(f"  {CYAN}--config{RESET}      Open configuration file (Edit API key, Model, Prompts)")
+    print(f"  {CYAN}--debug{RESET}       Enable debug mode (Show raw status codes and errors)")
+    print(f"  {CYAN}--help, -h{RESET}    Show this help message")
+    
+    print(f"\n{YELLOW}Examples:{RESET}")
+    print(f"  ai \"How do I unzip a tar file?\"")
+    print(f"  ai --config")
+    print(f"  cat error.log | ai \"Explain this error briefly\"")
+    sys.exit(0)
+
 def main():
     # 0. Load Configuration (Variables System)
     config = load_config()
 
     # 1. Handle Flags
-    # If user wants to edit config
+    if "--help" in sys.argv or "-h" in sys.argv:
+        print_help()
+
     if "--config" in sys.argv:
         open_editor()
 
     debug_mode = "--debug" in sys.argv
-    # Filter flags out of arguments
-    args = [arg for arg in sys.argv[1:] if arg not in ["--debug", "--config"]]
+    # Filter flags out of arguments so they don't get sent to the AI
+    args = [arg for arg in sys.argv[1:] if arg not in ["--debug", "--config", "--help", "-h"]]
 
     # 2. Input Handling
     user_input = ""
     if not sys.stdin.isatty():
+        # Handle Piped Input (e.g., cat file | ai)
         user_input = sys.stdin.read().strip()
         if args: user_input += "\n" + " ".join(args)
     elif args:
+        # Handle Standard Arguments (e.g., ai "query")
         user_input = " ".join(args)
     else:
-        print("Usage: ai \"your question\"")
-        print("Config: ai --config")
-        print("Debug:  ai --debug \"...\"")
-        sys.exit(0)
+        # No input provided, show help
+        print_help()
 
     # 3. Prepare Variables from Config
     api_key = config.get("api_key")
