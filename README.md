@@ -1,6 +1,6 @@
 ## Termai
-Termai is a lightweight, zero-dependency CLI wrapper for Google's Gemini AI, built specifically for the Termux environment on Android.
-It brings the power of Large Language Models (LLMs) directly to your mobile command line, following the Unix philosophy of piping and standard streams.
+Termai is a lightweight, zero-dependency CLI wrapper for Google's Gemini AI, built for Termux on Android and general Linux environments.
+It brings the power of Large Language Models (LLMs) directly to your command line, following the Unix philosophy of piping and standard streams.
 
 ## ⚡ Features
  * **🚀 Lightweight:** Uses standard Python requests. No heavy SDKs or complex dependencies.
@@ -149,5 +149,5 @@ rm -rf ~/.local/share/termai
 This project is licensed under the MIT License.
 You are free to use, modify, and distribute this software. See the LICENSE file for more details.
 <p align="center">
-Made with ❤️ for Termux
+Made with ❤️ for CLI enthusiasts
 </p>
