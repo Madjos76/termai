@@ -4,6 +4,7 @@ import json
 import requests
 import subprocess
 from pathlib import Path
+import copy # Import copy for deepcopy
 
 # --- Configuration Paths ---
 APP_NAME = "termai"
@@ -73,7 +74,7 @@ def load_config():
         # Migration from old flat structure to new nested structure
         if "api_key" in config:
             print(f"[{APP_NAME}] Migrating config to new nested structure...")
-            new_config = DEFAULT_CONFIG.copy()
+            new_config = copy.deepcopy(DEFAULT_CONFIG)
             # Preserve old top-level keys
             new_config["proxy"] = config.get("proxy", "")
             
@@ -101,7 +102,7 @@ def load_config():
         OLD_KEY_FILE.rename(backup_file)
         
     # 3. First Run Setup
-    new_config = DEFAULT_CONFIG.copy()
+    new_config = copy.deepcopy(DEFAULT_CONFIG)
     if sys.stdin.isatty():
         print(f"[{APP_NAME}] First run! Choose your primary AI provider.")
         provider = ""
